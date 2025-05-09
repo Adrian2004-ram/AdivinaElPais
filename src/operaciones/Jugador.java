@@ -26,8 +26,5 @@ public class Jugador {
 	public void setPuntuacionMasAlta(int puntuacionMasAlta) {
 		this.puntuacionMasAlta = puntuacionMasAlta;
 	}
-	//Metodo
-	
-	
 
 }

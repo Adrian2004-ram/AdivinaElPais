@@ -1,5 +1,7 @@
 package controlador;
 
+import operaciones.PaisDAO;
+
 public class LecturaEscrituraFicheros {
 
 	public String escribirInfo(String infoEnviar) {
@@ -12,6 +14,13 @@ public class LecturaEscrituraFicheros {
 		
 		return "nada";
 		
+	}
+	
+	public String enviarPais(String nombrefichero) {
+		String resultado="Pais almacenado correctamente";
+		PaisDAO paDao=new PaisDAO();
+		resultado = paDao.paisSacado(nombrefichero);
+		return resultado;
 	}
 	
 }

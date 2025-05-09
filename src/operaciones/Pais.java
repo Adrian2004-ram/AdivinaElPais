@@ -40,6 +40,6 @@ public class Pais {
 	public void setImgLugar(String imgLugar) {
 		this.imgLugar = imgLugar;
 	}
-	//Metodo
+
 	
 }
