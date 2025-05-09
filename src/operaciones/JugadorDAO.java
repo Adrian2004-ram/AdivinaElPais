@@ -1,4 +1,4 @@
-package clasesDAO;
+package operaciones;
 
 public class JugadorDAO {
 
