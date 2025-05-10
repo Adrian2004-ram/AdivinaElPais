@@ -10,6 +10,7 @@ public class PaisDAO {
 	//Sacar pais base de datos y enviar a interfaz
 	public String paisSacado(String nombrefichero) {
 		return "nada";
+		
 	}
 	//meter paises cuando se inicia partida
 	public void paisesDisponible() {
