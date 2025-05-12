@@ -1,5 +1,11 @@
 package controlador;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
+import operaciones.ComunidadDAO;
+
 public class LecturaEscrituraFicheros {
 	//Jugador
 	public void escribirJugs(String infoEnviar) {
@@ -12,13 +18,31 @@ public class LecturaEscrituraFicheros {
 	}
 	//Pais
 	public void enviarPais(String nombreFichero) {
-
+		ComunidadDAO cd = new ComunidadDAO();
 		//llama a metodo de base de datos
-		
+		String comunidades = cd.paisSacado();
 		//separa en arrays
-		
-		//devielve 
-	
+		try {
+			BufferedWriter bw=new BufferedWriter(new FileWriter(nombreFichero));
+			if(comunidades!=null) {
+				//substring quita el ultimp "|" del string mandado por bas4e de datos
+				comunidades = comunidades.substring(0, comunidades.length()-1);//Quito la última coma
+				String[] split = comunidades.split("|");
+				if(split.length>0) {
+					for(int i=0;i<split.length;i++) {
+						bw.write(split[i]);
+						bw.newLine();
+					}
+					bw.close();
+				}else {
+					comunidades="Envio de información erróneo,vuelvalo a intentar";
+				}
+				
+			}
+		} catch (IOException e) {
+			System.out.println("Error al escribir el fichero");
+			comunidades = "";
+		}
 	}	
 	
 }
