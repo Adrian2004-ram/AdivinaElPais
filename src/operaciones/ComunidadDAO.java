@@ -39,13 +39,12 @@ public class ComunidadDAO {
 			ResultSet rs = sentencia.executeQuery(sql);
 			
 			while (rs.next()) {
-				int id = rs.getInt("idComunidad");
 	            String nombre = rs.getString("nameComunidad");
 	            String foto1 = rs.getString("foto1");
 	            String foto2 = rs.getString("foto2");
 	            String foto3 = rs.getString("foto3");
 	            
-	            resultado = resultado + id + "|" +  nombre + "|" + foto1 + "|" + foto2 + "|" + foto3 + "|";
+	            resultado = resultado +  nombre + "|" + foto1 + "|" + foto2 + "|" + foto3 + "|";
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
