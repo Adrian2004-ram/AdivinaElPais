@@ -2,20 +2,19 @@ package operaciones;
 
 public class Comunidad {
 	//Atributop
-	private int id_pais;
 	private String nombre;
 	private String imgBandera;
 	private String imgComida;
 	private String imgLugar;
 	//Constructor
-	
+	public Comunidad(String nombre, String imgBandera, String imgComida, String imgLugar) {
+		this.nombre = nombre;
+		this.imgBandera = imgBandera;
+		this.imgComida = imgComida;
+		this.imgLugar = imgLugar;
+	}
+	public Comunidad() {}
 	//Get y Set
-	public int getId_pais() {
-		return id_pais;
-	}
-	public void setId_pais(int id_pais) {
-		this.id_pais = id_pais;
-	}
 	public String getNombre() {
 		return nombre;
 	}

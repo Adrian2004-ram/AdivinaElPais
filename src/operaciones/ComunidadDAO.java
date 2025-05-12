@@ -26,7 +26,7 @@ public class ComunidadDAO {
 	
 	
 	//Sacar pais base de datos y enviar a interfaz
-	public String paisSacado() {
+	public String comudadesSacadas() {
 		//Base de datos
 		Connection conexion = conectar();
 		//saca paises de base de datos
@@ -52,6 +52,10 @@ public class ComunidadDAO {
 		}
 		//devuelvelo
 		return resultado;
+		
+	}
+	
+	public void comunidadActual() {
 		
 	}
 

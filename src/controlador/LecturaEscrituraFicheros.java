@@ -8,6 +8,9 @@ import operaciones.ComunidadDAO;
 import operaciones.JugadorDAO;
 
 public class LecturaEscrituraFicheros {
+	
+	public LecturaEscrituraFicheros () {}
+	
 	//Jugador
 	public void puntuacinJug(String fichero) {
 		
@@ -22,10 +25,10 @@ public class LecturaEscrituraFicheros {
 	}
 	
 	//Pais
-	public void enviarPais(String nombreFichero) {
+	public void enviarCouidades(String nombreFichero) {
 		ComunidadDAO cd = new ComunidadDAO();
 		//llama a metodo de base de datos
-		String comunidades = cd.paisSacado();
+		String comunidades = cd.comudadesSacadas();
 		//separa en arrays
 		try {
 			BufferedWriter bw=new BufferedWriter(new FileWriter(nombreFichero));
