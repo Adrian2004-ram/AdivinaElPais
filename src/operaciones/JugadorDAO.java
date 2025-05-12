@@ -23,11 +23,11 @@ public class JugadorDAO {
 	}
 	
 	//crea jugador
-	public void meterUsuario(String nombre) {
+	/*public void meterUsuario(String nombre) {
 		//Base de datos
 		Connection conexion = conectar();
 		//saca paises de base de datos
-		String sql="Insert nombre from Jugador ";
+		String sql="INSERT INTO JUGADOR VALUE(?, )";
 		Statement sentencia;
 		String resultado = "";
 		//usamos la conextion
@@ -52,5 +52,5 @@ public class JugadorDAO {
 	public void puntuacion(int puntuancion) {
 		
 	}
-
+*/
 }
