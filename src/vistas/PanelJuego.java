@@ -14,6 +14,15 @@ public class PanelJuego {
 	
 	private Comunidad preguntaActual;
 	
+	public void main(String[] args) {
+		
+		//lamar  listacComunidad
+		
+		
+		//llamas a preguntaActual
+		
+	}
+	
 	
 	public void listaComunidad() {
 		//ruta a fichero
@@ -21,19 +30,32 @@ public class PanelJuego {
 		
 		//escribe las comunidades en el fichero
 		LecturaEscrituraFicheros ficheros = new LecturaEscrituraFicheros();
-		ficheros.enviarCouidades(ruta);
+		ficheros.enviarComuidades(ruta);
+	}
+	
+    public void preguntaActual() {
+		//ruta a fichero
+		String ruta = "../comunidad.txt";
 		
 		//leemos las lineas del fichero
         String[] datos = new String[4];
+        ArrayList<String> todasLasLineas = new ArrayList<>();
+        
         try (BufferedReader reader = new BufferedReader(new FileReader(ruta))) {
-            int cont = 0;
-            while ((datos[cont] = reader.readLine()) != null && cont<4) {
-                cont++;
+        	String linea;
+        	int cont = 0;
+            while ((linea = reader.readLine()) != null) {
+                if (cont < 4) {
+                    datos[cont] = linea;
+                    cont++;
+                } else {
+                    todasLasLineas.add(linea);
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
+	    
         //creamos clase comunidad
         preguntaActual = new Comunidad(datos[0], datos[1], datos[2], datos[3]);
         
@@ -46,6 +68,8 @@ public class PanelJuego {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        
+        
         
 	}
 	

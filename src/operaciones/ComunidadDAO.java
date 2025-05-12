@@ -30,7 +30,7 @@ public class ComunidadDAO {
 		//Base de datos
 		Connection conexion = conectar();
 		//saca paises de base de datos
-		String sql="SELECT COMUNIDAD_ID, NOMBRE, FOTO_BANDERA, FOTO_COMIDA, FOTO_LUGAR FROM COMUNIDAD ";
+		String sql="SELECT NOMBRE, FOTO_BANDERA, FOTO_COMIDA, FOTO_LUGAR FROM COMUNIDAD ";
 		Statement sentencia;
 		String resultado = "";
 		//usamos la conextion
@@ -55,8 +55,6 @@ public class ComunidadDAO {
 		
 	}
 	
-	public void comunidadActual() {
-		
-	}
+
 
 }

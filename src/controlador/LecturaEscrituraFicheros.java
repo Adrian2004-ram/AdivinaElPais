@@ -25,7 +25,7 @@ public class LecturaEscrituraFicheros {
 	}
 	
 	//Pais
-	public void enviarCouidades(String nombreFichero) {
+	public void enviarComuidades(String nombreFichero) {
 		ComunidadDAO cd = new ComunidadDAO();
 		//llama a metodo de base de datos
 		String comunidades = cd.comudadesSacadas();
