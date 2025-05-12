@@ -5,17 +5,22 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import operaciones.ComunidadDAO;
+import operaciones.JugadorDAO;
 
 public class LecturaEscrituraFicheros {
 	//Jugador
-	public void escribirJugs(String infoEnviar) {
+	public void puntuacinJug(String fichero) {
 		
 		
 	}
 	
-	public void enviarJuga(String nombreFichero) {
-				
+	public void creaJugador(String nombre) {		
+		//cojes el nombre escrito por jugador
+		JugadorDAO jd = new JugadorDAO();
+		//llamas al metodo de la base de datos para meterlo
+		jd.insertJugador(nombre);
 	}
+	
 	//Pais
 	public void enviarPais(String nombreFichero) {
 		ComunidadDAO cd = new ComunidadDAO();

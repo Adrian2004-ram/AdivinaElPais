@@ -5,8 +5,11 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.PreparedStatement;
 
 public class JugadorDAO {
+	
+	public void JugadorDAO() {}
 	
 	//Metodo
 	private static Connection conectar() {
@@ -23,34 +26,32 @@ public class JugadorDAO {
 	}
 	
 	//crea jugador
-	/*public void meterUsuario(String nombre) {
+	public void insertJugador(String nombre) {
 		//Base de datos
 		Connection conexion = conectar();
 		//saca paises de base de datos
-		String sql="INSERT INTO JUGADOR VALUE(?, )";
-		Statement sentencia;
-		String resultado = "";
+		String sql="INSERT INTO JUGADOR (NOMBRE_USUARIO, PUNTUACION_MAX) VALUES (', ');";
+		PreparedStatement sentencia;
 		//usamos la conextion
 		try {
-			sentencia = conexion.createStatement();
-			ResultSet rs = sentencia.executeQuery(sql);
 			
-			while (rs.next()) {
-	            String nombre = rs.getString("nombre");
-	            
-	            
-	            resultado = resultado + id + "|" +  nombre + "|" + foto1 + "|" + foto2 + "|" + foto3 + "|";
-			}
+			sentencia = conexion.prepareStatement(sql);
+			sentencia.setString(1, nombre);
+			sentencia.setInt(2, 0);
+
+			sentencia.executeUpdate();
+			
+			conexion.close();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return "";
 		}
-		//devuelvelo
-		return resultado;
+		
 	}
+	
 	//emviar puntuacion
 	public void puntuacion(int puntuancion) {
 		
 	}
-*/
+
 }
