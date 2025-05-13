@@ -1,53 +1,67 @@
 package vistas;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
+import javax.swing.*;
+import java.awt.*;
 
-import java.awt.FlowLayout;
-import java.awt.event.*;
+public class PanelInicio extends JPanel {
 
+    private JTextField nombreField;
+    private JButton jugarButton;
+    private JButton puntuacionesButton;
+    private JButton salirButton;
 
+    public PanelInicio(JFrame ventanaPrincipal, JPanel panelJuego, JPanel panelPuntuaciones) {
+        setLayout(new BorderLayout());
 
-public class PanelInicio {
+        JLabel titulo = new JLabel("ADIVINA LA COMUNIDAD", SwingConstants.CENTER);
+        titulo.setFont(new Font("Arial", Font.BOLD, 24));
+        add(titulo, BorderLayout.NORTH);
 
-    public static void main(String[] args) {
+      
+        JPanel centro = new JPanel(new GridLayout(5, 1, 10, 10));
+        centro.setBorder(BorderFactory.createEmptyBorder(20, 50, 20, 50));
 
-        JFrame ventana = new JFrame("Adivina la Comunidad");
-        ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        ventana.setSize(400, 200);
-        ventana.setLayout(new FlowLayout()); 
+        centro.add(new JLabel("Introduce tu nombre:", SwingConstants.CENTER));
 
+        nombreField = new JTextField();
+        centro.add(nombreField);
 
-        JLabel label = new JLabel("Ingresa tu nombre(minimo 3 letras):");
-        ventana.add(label); 
+        jugarButton = new JButton("Jugar");
+        puntuacionesButton = new JButton("Ver puntuaciones");
+        salirButton = new JButton("Salir");
 
+        centro.add(jugarButton);
+        centro.add(puntuacionesButton);
+        centro.add(salirButton);
 
-        JTextField nombreField = new JTextField(20);
-        ventana.add(nombreField);
+        add(centro, BorderLayout.CENTER);
 
-        JButton comenzarButton = new JButton("Comenzar");
-        ventana.add(comenzarButton);
-
-
-        comenzarButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String nombre = nombreField.getText();
-                if (nombre.isEmpty()) {
-                    JOptionPane.showMessageDialog(ventana, "Por favor, ingresa tu nombre.");
-                } else if (nombre.length() < 3) {
-                    JOptionPane.showMessageDialog(ventana, "El nombre debe tener al menos 3 letras.");
-                } else {
-
-                    JOptionPane.showMessageDialog(ventana, "¡Hola, " + nombre + "! Comienza el juego.");
-                    ventana.dispose(); 
-                }
+       
+        jugarButton.addActionListener(e -> {
+            String nombre = nombreField.getText().trim();
+            if (nombre.length() < 3) {
+                JOptionPane.showMessageDialog(this, "El nombre debe tener al menos 3 letras.");
+                return;
             }
+
+           
+            ventanaPrincipal.getContentPane().removeAll();
+            ventanaPrincipal.add(panelJuego);
+            ventanaPrincipal.revalidate();
+            ventanaPrincipal.repaint();
         });
 
-        ventana.setVisible(true);
+        puntuacionesButton.addActionListener(e -> {
+            ventanaPrincipal.getContentPane().removeAll();
+            ventanaPrincipal.add(panelPuntuaciones);
+            ventanaPrincipal.revalidate();
+            ventanaPrincipal.repaint();
+        });
+
+        salirButton.addActionListener(e -> System.exit(0));
+    }
+
+    public String getNombreJugador() {
+        return nombreField.getText();
     }
 }
