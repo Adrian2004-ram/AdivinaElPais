@@ -16,10 +16,8 @@ public class PanelJuego {
 	
 	public void main(String[] args) {
 		
-		//lamar  listacComunidad
+		respuestaJugador("Adrian");
 		
-		
-		//llamas a preguntaActual
 		
 	}
 	
@@ -72,6 +70,34 @@ public class PanelJuego {
         
         
 	}
+    
+    public void respuestaJugador(String respuesta) {
+    	//variables
+		String ruta = "../puntuacion.txt";
+    	boolean esCorrecto = false;
+    	int puntuacion = 0;
+    	//confirmamos que la respuesta del usuario sea igual a la correcta
+    	//if(respuesta.equalsIgnoreCase(preguntaActual.getNombre())) {
+    	if(respuesta.equalsIgnoreCase("Adrian")) {
+    		esCorrecto = true;
+    	}
+    	//leemos fichero para ver puntuacion y actualizarla
+        try (BufferedReader reader = new BufferedReader(new FileReader(ruta))) {
+        	String linea = reader.readLine();
+        	if(linea != null) {
+        		puntuacion = Integer.parseInt(linea);
+        	}
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //reescribimos el fichero
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(ruta))) {
+            writer.write(puntuacion);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+	
+    }
 	
 }
 
