@@ -119,4 +119,19 @@ public class LecturaEscrituraFicheros {
  
         
 	}
+    
+    public int sacarPuntuacion(String ruta) {
+		int puntuacion = 0;
+        try (BufferedReader reader = new BufferedReader(new FileReader(ruta))) {
+        	String linea = reader.readLine();
+        	if (linea != null && !linea.trim().isEmpty()) {
+        	    puntuacion = Integer.parseInt(linea.trim());
+        	}
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return puntuacion;
+    }
+
+    
 }

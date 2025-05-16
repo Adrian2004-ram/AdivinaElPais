@@ -68,6 +68,20 @@ public class PanelJuego extends JFrame{
     		return false;
     	}
     }
+    
+    public int mostrarPuntuacion() {
+		String ruta = "../puntuacion.txt";
+		
+		LecturaEscrituraFicheros le = new LecturaEscrituraFicheros();
+    	int punutacion = le.sacarPuntuacion(ruta);
+    	
+    	return punutacion;
+    }
+    
+    
+    //----------------------------
+    
+    
 	
 }
 

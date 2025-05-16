@@ -40,10 +40,10 @@ public class ComunidadDAO {
 			ResultSet rs = sentencia.executeQuery(sql);
 			
 			while (rs.next()) {
-	            String nombre = rs.getString("nameComunidad");
-	            String foto1 = rs.getString("foto1");
-	            String foto2 = rs.getString("foto2");
-	            String foto3 = rs.getString("foto3");
+	            String nombre = rs.getString("NOMBRE");
+	            String foto1 = rs.getString("FOTO_BANDERA");
+	            String foto2 = rs.getString("FOTO_COMIDA");
+	            String foto3 = rs.getString("FOTO_LUGAR");
 	            
 	            resultado = resultado +  nombre + "|" + foto1 + "|" + foto2 + "|" + foto3 + "|";
 			}
