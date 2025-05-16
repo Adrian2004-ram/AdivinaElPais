@@ -15,7 +15,7 @@ public class JugadorDAO {
 	private static Connection conectar() {
 		Connection con = null;
 
-		 String url = "jdbc:mysql://127.0.0.1:3306/Adivina_lacomunidad";
+		 String url = "jdbc:mysql://127.0.0.1:3306/Adivina_la_comunidad";
 	        try {
 	            con = DriverManager.getConnection(url, "root", "3142cdS");
 		} catch (SQLException ex) {

@@ -10,14 +10,13 @@ public class PanelInicio extends JPanel {
     private JButton puntuacionesButton;
     private JButton salirButton;
 
-    public PanelInicio(JFrame ventanaPrincipal, JPanel panelJuego, JPanel panelPuntuaciones) {
+    public PanelInicio(JFrame ventanaPrincipal) {
         setLayout(new BorderLayout());
 
         JLabel titulo = new JLabel("ADIVINA LA COMUNIDAD", SwingConstants.CENTER);
         titulo.setFont(new Font("Arial", Font.BOLD, 24));
         add(titulo, BorderLayout.NORTH);
 
-      
         JPanel centro = new JPanel(new GridLayout(5, 1, 10, 10));
         centro.setBorder(BorderFactory.createEmptyBorder(20, 50, 20, 50));
 
@@ -36,7 +35,6 @@ public class PanelInicio extends JPanel {
 
         add(centro, BorderLayout.CENTER);
 
-       
         jugarButton.addActionListener(e -> {
             String nombre = nombreField.getText().trim();
             if (nombre.length() < 3) {
@@ -44,7 +42,10 @@ public class PanelInicio extends JPanel {
                 return;
             }
 
-           
+            // Crear el PanelJuego cuando se haga clic en "Jugar"
+            PanelJuego panelJuego = new PanelJuego(ventanaPrincipal);
+
+            // Cambiar el contenido de la ventana principal y agregar el panel de juego
             ventanaPrincipal.getContentPane().removeAll();
             ventanaPrincipal.add(panelJuego);
             ventanaPrincipal.revalidate();
@@ -52,6 +53,8 @@ public class PanelInicio extends JPanel {
         });
 
         puntuacionesButton.addActionListener(e -> {
+            // Cambiar a panel de puntuaciones (en caso de que lo tengas)
+            JPanel panelPuntuaciones = new JPanel(); // Aquí deberías tener el panel de puntuaciones
             ventanaPrincipal.getContentPane().removeAll();
             ventanaPrincipal.add(panelPuntuaciones);
             ventanaPrincipal.revalidate();

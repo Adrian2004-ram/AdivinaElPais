@@ -39,7 +39,7 @@ public class LecturaEscrituraFicheros {
 			if(comunidades!=null) {
 				//substring quita el ultimp "|" del string mandado por bas4e de datos
 				comunidades = comunidades.substring(0, comunidades.length()-1);//Quito la última coma
-				String[] split = comunidades.split("|");
+				String[] split = comunidades.split("\\|");
 				if(split.length>0) {
 					for(int i=0;i<split.length;i++) {
 						bw.write(split[i]);
@@ -70,13 +70,13 @@ public class LecturaEscrituraFicheros {
             e.printStackTrace();
         }
         //reescribimos el fichero
+        puntuacion++;
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(ruta))) {
-            writer.write(puntuacion);
+        	writer.write(String.valueOf(puntuacion)); 
         } catch (IOException e) {
             e.printStackTrace();
         }   
 	}
-	
 	//reinicia la pregunta a la nueva comunidad
 	
     public Comunidad preguntaActual() {
@@ -132,6 +132,5 @@ public class LecturaEscrituraFicheros {
         }
         return puntuacion;
     }
-
-    
+ 
 }
