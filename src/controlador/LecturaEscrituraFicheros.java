@@ -1,9 +1,13 @@
 package controlador;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
+import operaciones.Comunidad;
 import operaciones.ComunidadDAO;
 import operaciones.JugadorDAO;
 
@@ -52,5 +56,67 @@ public class LecturaEscrituraFicheros {
 			comunidades = "";
 		}
 	}	
+
+	//respuesta jugador comprobar y sumar puntuacon en fichero
 	
+	public void sumarPunto(String ruta) {
+		int puntuacion = 0;
+        try (BufferedReader reader = new BufferedReader(new FileReader(ruta))) {
+        	String linea = reader.readLine();
+        	if (linea != null && !linea.trim().isEmpty()) {
+        	    puntuacion = Integer.parseInt(linea.trim());
+        	}
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //reescribimos el fichero
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(ruta))) {
+            writer.write(puntuacion);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }   
+	}
+	
+	//reinicia la pregunta a la nueva comunidad
+	
+    public Comunidad preguntaActual() {
+		//ruta a fichero
+		String ruta = "../comunidad.txt";
+		
+		//leemos las lineas del fichero
+        String[] datos = new String[4];
+        ArrayList<String> todasLasLineas = new ArrayList<>();
+        
+        try (BufferedReader reader = new BufferedReader(new FileReader(ruta))) {
+        	String linea;
+        	int cont = 0;
+            while ((linea = reader.readLine()) != null) {
+                if (cont < 4) {
+                    datos[cont] = linea;
+                    cont++;
+                } else {
+                    todasLasLineas.add(linea);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+	    
+        //creamos clase comunidad
+        Comunidad preguntaActual = new Comunidad(datos[0], datos[1], datos[2], datos[3]);
+        
+        //eliminamos la info del fichero
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(ruta))) {
+            for (int i = 0; i < todasLasLineas.size(); i++) {
+                writer.write(todasLasLineas.get(i));
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        return preguntaActual;
+ 
+        
+	}
 }

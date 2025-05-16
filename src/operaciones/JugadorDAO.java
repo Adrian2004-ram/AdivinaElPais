@@ -15,9 +15,9 @@ public class JugadorDAO {
 	private static Connection conectar() {
 		Connection con = null;
 
-		String url = "jdbc:mysql://localhost/Adivina_la_comunidad";
-		try {
-			con = DriverManager.getConnection(url, "root", "1234");
+		 String url = "jdbc:mysql://127.0.0.1:3306/Adivina_lacomunidad";
+	        try {
+	            con = DriverManager.getConnection(url, "root", "3142cdS");
 		} catch (SQLException ex) {
 			System.out.println("Error al conectar al SGBD.");
 		}
@@ -30,7 +30,7 @@ public class JugadorDAO {
 		//Base de datos
 		Connection conexion = conectar();
 		//saca paises de base de datos
-		String sql="INSERT INTO JUGADOR (NOMBRE_USUARIO, PUNTUACION_MAX) VALUES (', ');";
+		String sql="INSERT INTO JUGADOR (NOMBRE_USUARIO, PUNTUACION_MAX) VALUES (?, ?);";
 		PreparedStatement sentencia;
 		//usamos la conextion
 		try {

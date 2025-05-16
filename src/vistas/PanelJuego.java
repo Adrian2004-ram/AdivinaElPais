@@ -7,20 +7,42 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 import controlador.LecturaEscrituraFicheros;
 import operaciones.Comunidad;
 
-public class PanelJuego {
+public class PanelJuego extends JFrame{
 	
 	private Comunidad preguntaActual;
 	
-	public void main(String[] args) {
-		
-		respuestaJugador("Adrian");
-		
-		
-	}
-	
+	public PanelJuego() {
+        setTitle("Adivina la Comunidad");
+        setSize(600, 400);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+
+        // Crear paneles
+        JPanel panelJuego = new JPanel();
+        panelJuego.add(new JLabel());
+
+        JPanel panelPuntuaciones = new JPanel();
+        panelPuntuaciones.add(new JLabel());
+
+        PanelInicio panelInicio = new PanelInicio(this, panelJuego, panelPuntuaciones);
+        add(panelInicio);
+
+        
+        setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        new PanelJuego();
+    }
+
+	//----------------------------------------------------------------------------------
 	
 	public void listaComunidad() {
 		//ruta a fichero
@@ -30,73 +52,21 @@ public class PanelJuego {
 		LecturaEscrituraFicheros ficheros = new LecturaEscrituraFicheros();
 		ficheros.enviarComuidades(ruta);
 	}
-	
-    public void preguntaActual() {
-		//ruta a fichero
-		String ruta = "../comunidad.txt";
-		
-		//leemos las lineas del fichero
-        String[] datos = new String[4];
-        ArrayList<String> todasLasLineas = new ArrayList<>();
-        
-        try (BufferedReader reader = new BufferedReader(new FileReader(ruta))) {
-        	String linea;
-        	int cont = 0;
-            while ((linea = reader.readLine()) != null) {
-                if (cont < 4) {
-                    datos[cont] = linea;
-                    cont++;
-                } else {
-                    todasLasLineas.add(linea);
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-	    
-        //creamos clase comunidad
-        preguntaActual = new Comunidad(datos[0], datos[1], datos[2], datos[3]);
-        
-        //eliminamos la info del fichero
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(ruta))) {
-            for (int i = 0; i < todasLasLineas.size(); i++) {
-                writer.write(todasLasLineas.get(i));
-                writer.newLine();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        
-        
-        
-	}
-    
-    public void respuestaJugador(String respuesta) {
+	   
+    public boolean respuestaPositivaJugador(String respuesta) {
     	//variables
 		String ruta = "../puntuacion.txt";
     	boolean esCorrecto = false;
-    	int puntuacion = 0;
+    	
     	//confirmamos que la respuesta del usuario sea igual a la correcta
-    	//if(respuesta.equalsIgnoreCase(preguntaActual.getNombre())) {
-    	if(respuesta.equalsIgnoreCase("Adrian")) {
-    		esCorrecto = true;
+    	if(respuesta.equalsIgnoreCase(preguntaActual.getNombre())) {
+        	//leemos fichero para ver puntuacion y actualizarla
+    		LecturaEscrituraFicheros le = new LecturaEscrituraFicheros();
+    		le.sumarPunto(ruta);
+            return true;
+    	} else {
+    		return false;
     	}
-    	//leemos fichero para ver puntuacion y actualizarla
-        try (BufferedReader reader = new BufferedReader(new FileReader(ruta))) {
-        	String linea = reader.readLine();
-        	if(linea != null) {
-        		puntuacion = Integer.parseInt(linea);
-        	}
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        //reescribimos el fichero
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(ruta))) {
-            writer.write(puntuacion);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-	
     }
 	
 }
