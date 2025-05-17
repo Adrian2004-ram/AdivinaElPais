@@ -1,6 +1,10 @@
 package vistas;
 
 import javax.swing.*;
+
+import controlador.LecturaEscrituraFicheros;
+import operaciones.Jugador;
+
 import java.awt.*;
 
 public class PanelInicio extends JPanel {
@@ -67,4 +71,54 @@ public class PanelInicio extends JPanel {
     public String getNombreJugador() {
         return nombreField.getText();
     }
+    
+    //----------------------------------------
+    
+    //llamamos a este metodo paraq guardar el nombre del jugador, y la fecha y la hora a la que empezo la partida
+    public void guardarJugadorFichero(Jugador player) {
+		//ruta donde guardaremos los daots
+    	String ruta = "../jugador.txt";
+    	//llamamos al metodo que guarda los datos del jugador en un fichero
+		LecturaEscrituraFicheros le = new LecturaEscrituraFicheros();
+		le.guardarNombreFichero(player, ruta);
+		
+    }
+    
+    public void sacarDatosySumarPunutacion() {
+    	
+		LecturaEscrituraFicheros le = new LecturaEscrituraFicheros();
+		
+		//sacamos la punutacion del fichero
+		String rutaPuntuacion = "../punutacion.txt";
+    	int punutacion = le.sacarPuntuacion(rutaPuntuacion);
+    	
+    	
+    	//sacamos el nombre, fecha y horta del fichero
+    	String rutaJugador = "../jugador.txt";
+    	String datos[] = le.sacarjugadorFichero(rutaJugador);
+    	
+    	//insertamos en la base de datos al jugador
+    	
+    	/*
+    	 * Ho haemos que los datos del jugador se inserten en la propia llamada 
+    	 * a este metoso, o traemos el jugador de un fichero
+    	 * */
+    	
+    }
+    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

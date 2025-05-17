@@ -1,30 +1,59 @@
 package operaciones;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
 public class Jugador {
 	//Atributos
-	private int id_jugador;
 	private String nombre;
-	private int puntuacionMasAlta;
+	private int puntuacionPartida;
+	private LocalDate fecha;
+	private LocalTime hora;
 	//Constructor
-	
+	public Jugador(String nombre) {
+		super();
+		this.nombre = nombre;
+		//Metemos la fecha y hora de comienzo de partida
+		this.fecha = LocalDate.now();
+		this.hora = LocalTime.now();
+		//inicializamos la punutacion a 0
+		this.puntuacionPartida = 0;
+	}
+	//METODO
+	public String fechaFormateada() {
+        DateTimeFormatter formatoF = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return this.fecha.format(formatoF);
+	}
+	public String horaFormateada() {
+        DateTimeFormatter formatoH = DateTimeFormatter.ofPattern("HH:mm");
+        return this.hora.format(formatoH);
+	}
 	//Get y Set
-	public int getId_jugador() {
-		return id_jugador;
-	}
-	public void setId_jugador(int id_jugador) {
-		this.id_jugador = id_jugador;
-	}
 	public String getNombre() {
 		return nombre;
 	}
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public int getPuntuacionMasAlta() {
-		return puntuacionMasAlta;
+	public int getPuntuacionPartida() {
+		return puntuacionPartida;
 	}
-	public void setPuntuacionMasAlta(int puntuacionMasAlta) {
-		this.puntuacionMasAlta = puntuacionMasAlta;
+	public void setPuntuacionPartida(int puntuacionPartida) {
+		this.puntuacionPartida = puntuacionPartida;
 	}
+	public LocalDate getFecha() {
+		return fecha;
+	}
+	public void setFecha(LocalDate fecha) {
+		this.fecha = fecha;
+	}
+	public LocalTime getHora() {
+		return hora;
+	}
+	public void setHora(LocalTime hora) {
+		this.hora = hora;
+	}
+
 
 }

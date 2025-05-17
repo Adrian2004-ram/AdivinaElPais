@@ -5,8 +5,9 @@ import javax.swing.*;
 import java.io.File;
 import controlador.LecturaEscrituraFicheros;
 import operaciones.Comunidad;
+import operaciones.Jugador;
 
-public class PanelJuego extends JFrame{
+public class PanelJuego extends JPanel{
 	
 	//variables
     private JTextField respuestaField;
@@ -14,7 +15,7 @@ public class PanelJuego extends JFrame{
     private JLabel preguntaLabel;
     private JPanel imagenesPanel;
     
-    
+    private Jugador jugador;
     private Comunidad preguntaActual;
     private String imagenBandera;
     private String imagenComida;

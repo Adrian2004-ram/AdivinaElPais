@@ -9,26 +9,18 @@ import java.util.ArrayList;
 
 import operaciones.Comunidad;
 import operaciones.ComunidadDAO;
+import operaciones.Jugador;
 import operaciones.JugadorDAO;
 
 public class LecturaEscrituraFicheros {
 	
 	public LecturaEscrituraFicheros () {}
 	
-	//Jugador
-	public void puntuacinJug(String fichero) {
-		
-		
-	}
+
 	
-	public void creaJugador(String nombre) {		
-		//cojes el nombre escrito por jugador
-		JugadorDAO jd = new JugadorDAO();
-		//llamas al metodo de la base de datos para meterlo
-		jd.insertJugador(nombre);
-	}
+	//METODOS COMUNDAD
 	
-	//Pais
+	//Guarde en un fichero lascomundades que saldran en un ronda
 	public void enviarComuidades(String nombreFichero) {
 		ComunidadDAO cd = new ComunidadDAO();
 		//llama a metodo de base de datos
@@ -56,29 +48,8 @@ public class LecturaEscrituraFicheros {
 			comunidades = "";
 		}
 	}	
-
-	//respuesta jugador comprobar y sumar puntuacon en fichero
 	
-	public void sumarPunto(String ruta) {
-		int puntuacion = 0;
-        try (BufferedReader reader = new BufferedReader(new FileReader(ruta))) {
-        	String linea = reader.readLine();
-        	if (linea != null && !linea.trim().isEmpty()) {
-        	    puntuacion = Integer.parseInt(linea.trim());
-        	}
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        //reescribimos el fichero
-        puntuacion++;
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(ruta))) {
-        	writer.write(String.valueOf(puntuacion)); 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }   
-	}
 	//reinicia la pregunta a la nueva comunidad
-	
     public Comunidad preguntaActual() {
 		//ruta a fichero
 		String ruta = "../comunidad.txt";
@@ -120,6 +91,28 @@ public class LecturaEscrituraFicheros {
         
 	}
     
+    //METODOS ACTUALIZAR Y SACAR PUNTUACION DE FICHERO
+    
+	//Sumar puntuacon en fichero
+	public void sumarPunto(String ruta) {
+		int puntuacion = 0;
+        try (BufferedReader reader = new BufferedReader(new FileReader(ruta))) {
+        	String linea = reader.readLine();
+        	if (linea != null && !linea.trim().isEmpty()) {
+        	    puntuacion = Integer.parseInt(linea.trim());
+        	}
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //reescribimos el fichero
+        puntuacion++;
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(ruta))) {
+        	writer.write(String.valueOf(puntuacion)); 
+        } catch (IOException e) {
+            e.printStackTrace();
+        }   
+	}
+	
     public int sacarPuntuacion(String ruta) {
 		int puntuacion = 0;
         try (BufferedReader reader = new BufferedReader(new FileReader(ruta))) {
@@ -132,5 +125,56 @@ public class LecturaEscrituraFicheros {
         }
         return puntuacion;
     }
+    
+    //METODOS JUGADOR
  
+    public void guardarNombreFichero(Jugador player, String ruta) {
+		JugadorDAO jd = new JugadorDAO();
+		//separa en arrays
+		try {
+			BufferedWriter bw=new BufferedWriter(new FileWriter(ruta));
+			if(player!=null) {
+				bw.write(player.getNombre());
+				bw.newLine();
+				bw.write(player.fechaFormateada());
+				bw.newLine();
+				bw.write(player.horaFormateada());
+				bw.newLine();
+			    bw.close();
+			}else {
+				System.out.println("Envio de información erróneo,vuelvalo a intentar");
+			    bw.close();
+			}
+		} catch (IOException e) {
+			System.out.println("Error al escribir el fichero");
+		}
+    }
+    
+    public String[] sacarjugadorFichero(String ruta) {
+    	
+		JugadorDAO jd = new JugadorDAO();
+		String datosConcatenados[] = new String[3];
+		
+		//leemos el fichero
+		 try (BufferedReader reader = new BufferedReader(new FileReader(ruta))) {
+	        String linea;
+        	int cont = 0;
+        	String name = reader.readLine();
+        	String date = reader.readLine();
+        	String hour = reader.readLine();
+        	reader.close();
+            
+        	datosConcatenados[0] = name;
+        	datosConcatenados[0] = date;
+        	datosConcatenados[0] = hour;
+        	
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+		 
+		 
+		 
+		 return datosConcatenados;
+    }
+    
 }

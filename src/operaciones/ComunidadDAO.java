@@ -14,10 +14,10 @@ public class ComunidadDAO {
 	private static Connection conectar() {
 		Connection con = null;
 
-		 String url = "jdbc:mysql://127.0.0.1:3306/Adivina_la_comunidad";
+		 String url = "jdbc:mysql://localhost:3306/Adivina_la_comunidad";
 	    
 		 try {
-	        con = DriverManager.getConnection(url, "root", "3142cdS");
+	        con = DriverManager.getConnection(url, "root", "1234");
 		} catch (SQLException ex) {
 			System.out.println("Error al conectar al SGBD.");
 		}
@@ -47,6 +47,9 @@ public class ComunidadDAO {
 	            
 	            resultado = resultado +  nombre + "|" + foto1 + "|" + foto2 + "|" + foto3 + "|";
 			}
+			
+			conexion.close();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return "";
