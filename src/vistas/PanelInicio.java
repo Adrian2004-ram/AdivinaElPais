@@ -84,6 +84,7 @@ public class PanelInicio extends JPanel {
 		
     }
     
+    //sacamos los datos del jugador e insertamos en la base de datos
     public void sacarDatosySumarPunutacion() {
     	
 		LecturaEscrituraFicheros le = new LecturaEscrituraFicheros();
@@ -103,8 +104,9 @@ public class PanelInicio extends JPanel {
     	 * Ho haemos que los datos del jugador se inserten en la propia llamada 
     	 * a este metoso, o traemos el jugador de un fichero
     	 * */
-    	
+	
     }
+
     
 }
 

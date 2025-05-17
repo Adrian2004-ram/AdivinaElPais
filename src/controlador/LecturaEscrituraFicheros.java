@@ -29,7 +29,7 @@ public class LecturaEscrituraFicheros {
 		try {
 			BufferedWriter bw=new BufferedWriter(new FileWriter(nombreFichero));
 			if(comunidades!=null) {
-				//substring quita el ultimp "|" del string mandado por bas4e de datos
+				//substring quita el ultimp "|" del string mandado por base de datos
 				comunidades = comunidades.substring(0, comunidades.length()-1);//Quito la última coma
 				String[] split = comunidades.split("\\|");
 				if(split.length>0) {
