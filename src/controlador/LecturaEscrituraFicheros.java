@@ -7,6 +7,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import operaciones.Comunidad;
 import operaciones.ComunidadDAO;
 import operaciones.Jugador;
@@ -20,17 +22,17 @@ public class LecturaEscrituraFicheros {
 	
 	//METODOS COMUNDAD
 	
-	//Guarde en un fichero lascomundades que saldran en un ronda
+	//Guarde en un fichero las comunidades que saldran en un ronda
 	public void enviarComuidades(String nombreFichero) {
 		ComunidadDAO cd = new ComunidadDAO();
 		//llama a metodo de base de datos
-		String comunidades = cd.comudadesSacadas();
+		String comunidades = cd.comunidadesSacadas();
 		//separa en arrays
 		try {
 			BufferedWriter bw=new BufferedWriter(new FileWriter(nombreFichero));
 			if(comunidades!=null) {
-				//substring quita el ultimp "|" del string mandado por base de datos
-				comunidades = comunidades.substring(0, comunidades.length()-1);//Quito la última coma
+				//substring quita el ultimo "|" del string mandado por base de datos
+				comunidades = comunidades.substring(0, comunidades.length()-1);
 				String[] split = comunidades.split("\\|");
 				if(split.length>0) {
 					for(int i=0;i<split.length;i++) {
@@ -39,7 +41,7 @@ public class LecturaEscrituraFicheros {
 					}
 					bw.close();
 				}else {
-					comunidades="Envio de información erróneo,vuelvalo a intentar";
+					comunidades="Envio de información erróneo";
 				}
 				
 			}
@@ -125,29 +127,44 @@ public class LecturaEscrituraFicheros {
         }
         return puntuacion;
     }
-    
+    public void restaurarPuntuacionFichero(String ruta, int puntuacion) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(ruta))) {
+            writer.write(String.valueOf(puntuacion)); 
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     //METODOS JUGADOR
  
     public void guardarNombreFichero(Jugador player, String ruta) {
-		JugadorDAO jd = new JugadorDAO();
-		//separa en arrays
-		try {
-			BufferedWriter bw=new BufferedWriter(new FileWriter(ruta));
-			if(player!=null) {
-				bw.write(player.getNombre());
-				bw.newLine();
-				bw.write(player.fechaFormateada());
-				bw.newLine();
-				bw.write(player.horaFormateada());
-				bw.newLine();
-			    bw.close();
-			}else {
-				System.out.println("Envio de información erróneo,vuelvalo a intentar");
-			    bw.close();
-			}
-		} catch (IOException e) {
-			System.out.println("Error al escribir el fichero");
-		}
+        JugadorDAO jd = new JugadorDAO();
+        //separa en arrays
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter(ruta));
+            if (player != null) {
+                JOptionPane.showMessageDialog(null,
+                    "Nombre: " + player.getNombre() +
+                    "\nFecha: " + player.fechaFormateada() +
+                    "\nHora: " + player.horaFormateada(),
+                    "Datos del jugador", JOptionPane.INFORMATION_MESSAGE);
+
+                bw.write(player.getNombre());
+                bw.newLine();
+                bw.write(player.fechaFormateada());
+                bw.newLine();
+                bw.write(player.horaFormateada());
+                bw.newLine();
+            } else {
+                JOptionPane.showMessageDialog(null,
+                    "Envío de información erróneo, vuelva a intentarlo",
+                     "Advertencia", JOptionPane.WARNING_MESSAGE);
+            }
+            bw.close();
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null,
+                "Error al escribir el fichero:\n" + e.getMessage(),
+                "Error de escritura", JOptionPane.ERROR_MESSAGE);
+        }
     }
     
     public String[] sacarjugadorFichero(String ruta) {
@@ -157,16 +174,14 @@ public class LecturaEscrituraFicheros {
 		
 		//leemos el fichero
 		 try (BufferedReader reader = new BufferedReader(new FileReader(ruta))) {
-	        String linea;
-        	int cont = 0;
         	String name = reader.readLine();
         	String date = reader.readLine();
         	String hour = reader.readLine();
         	reader.close();
             
         	datosConcatenados[0] = name;
-        	datosConcatenados[0] = date;
-        	datosConcatenados[0] = hour;
+        	datosConcatenados[1] = date;
+        	datosConcatenados[2] = hour;
         	
         } catch (IOException e) {
             e.printStackTrace();

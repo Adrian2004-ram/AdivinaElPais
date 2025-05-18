@@ -11,7 +11,6 @@ import java.sql.PreparedStatement;
 
 public class JugadorDAO {
 	
-	public void JugadorDAO() {}
 	
 	//Metodo
 	private static Connection conectar() {
@@ -29,40 +28,39 @@ public class JugadorDAO {
 	
 	//crea jugador
 	public void insertJugador(Jugador player) {
-		//Base de datos
-		Connection conexion = conectar();
-		//saca paises de base de datos
-		String sql="INSERT INTO JUGADOR (NOMBRE_USUARIO, PUNTUACION_MAX, FECHA, HORA) VALUES (?, ?, ?, ?);";
-		PreparedStatement sentencia;
-		//usamos la conextion
-		try {
-			
-			sentencia = conexion.prepareStatement(sql);
-			sentencia.setString(1, player.getNombre());
-			sentencia.setInt(2, 0);
-			sentencia.setDate(3, Date.valueOf(player.getFecha()));
-			sentencia.setTime(4, Time.valueOf(player.getHora()));
+        //Base de datos
+        Connection conexion = conectar();
+        //saca paises de base de datos
+        String sql="INSERT INTO JUGADOR (NOMBRE_USUARIO, PUNTUACION_PARTIDA, FECHA, HORA) VALUES (?, ?, ?, ?);";
+        PreparedStatement sentencia;
+        //usamos la conextion
+        try {
 
-			sentencia.executeUpdate();
-			
-			conexion.close();
-			
-			 System.err.println("Jugador guardado con éxito.");		
+            sentencia = conexion.prepareStatement(sql);
+            sentencia.setString(1, player.getNombre());
+            sentencia.setInt(2, player.getPuntuacionPartida());
+            sentencia.setDate(3, Date.valueOf(player.getFecha()));
+            sentencia.setTime(4, Time.valueOf(player.getHora()));
 
-		} catch (SQLException e) {
-			 System.err.println("Error al guardar jugador: " + e.getMessage());
-		}
-		
-	}
-	
-	//emviar puntuacion
+            sentencia.executeUpdate();
+
+            conexion.close();
+
+             System.err.println("Jugador guardado con éxito.");
+
+        } catch (SQLException e) {
+             System.err.println("Error al guardar jugador: " + e.getMessage());
+        }
+
+    }
+	//enviamos la puntuacion
 	public void puntuacion(int puntuancion, Jugador player) {
 		//Base de datos
 		Connection conexion = conectar();
 		//saca paises de base de datos
 		String sql="UPDATE JUGADOR SET PUNTUACION_PARTIDA = ? WHERE NOMBRE_USUARIO = ? AND FECHA = ? AND HORA = ?;";
 		PreparedStatement sentencia;
-		//usamos la conextion
+		//usamos la conexion para sacar la puntuacion y enviarla a la base de datos
 		try {
 			
 			sentencia = conexion.prepareStatement(sql);
@@ -75,23 +73,23 @@ public class JugadorDAO {
 			
 			conexion.close();
 			
-			 System.err.println("Punutacion guardado con éxito.");		
+			 System.out.println("Puntuacion guardada con éxito.");		
 
 			
 		} catch (SQLException e) {
-			 System.err.println("Error al guardar la punutacoin: " + e.getMessage());
+			 System.out.println("Error al guardar la puntuacion: " + e.getMessage());
 		}
 	}
 	
 	//Devuelve un string con todas las punutaciones de cada jugador
-	public String logPunutacoines() {
+	public String logPuntuaciones() {
 		//Base de datos
 		Connection conexion = conectar();
 		//saca paises de base de datos
-		String sql="SElECT NOMBRE_USUARIO, PUNTUACION_PARTIDA, FECHA, HORA FROM JUGADOR";
+		String sql="SELECT NOMBRE_USUARIO, PUNTUACION_PARTIDA, FECHA, HORA FROM JUGADOR";
 		Statement sentencia;
 		String resultado = "";
-		//usamos la conextion
+		//usamos la conexion para obtener todas las puntuaciones.
 		try {
 			sentencia = conexion.createStatement();
 			ResultSet rs = sentencia.executeQuery(sql);

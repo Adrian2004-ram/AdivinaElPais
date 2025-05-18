@@ -16,8 +16,9 @@ public class ComunidadDAO {
 
 		 String url = "jdbc:mysql://localhost:3306/Adivina_la_comunidad";
 	    
-		 try {
-	        con = DriverManager.getConnection(url, "root", "1234");
+		try {
+            con = DriverManager.getConnection(url, "root", "1234");
+
 		} catch (SQLException ex) {
 			System.out.println("Error al conectar al SGBD.");
 		}
@@ -27,14 +28,14 @@ public class ComunidadDAO {
 	
 	
 	//Sacar pais base de datos y enviar a interfaz
-	public String comudadesSacadas() {
+	public String comunidadesSacadas() {
 		//Base de datos
 		Connection conexion = conectar();
 		//saca paises de base de datos
 		String sql="SELECT NOMBRE, FOTO_BANDERA, FOTO_COMIDA, FOTO_LUGAR FROM COMUNIDAD ";
 		Statement sentencia;
 		String resultado = "";
-		//usamos la conextion
+		//usamos la conexion para sacar el nombre y fotos de la comunidad
 		try {
 			sentencia = conexion.createStatement();
 			ResultSet rs = sentencia.executeQuery(sql);
@@ -54,11 +55,9 @@ public class ComunidadDAO {
 			e.printStackTrace();
 			return "";
 		}
-		//devuelvelo
+	
 		return resultado;
 		
 	}
 	
-
-
 }

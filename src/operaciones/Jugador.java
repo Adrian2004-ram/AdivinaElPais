@@ -20,6 +20,13 @@ public class Jugador {
 		//inicializamos la punutacion a 0
 		this.puntuacionPartida = 0;
 	}
+	public Jugador(String nombre, int puntuacionPartida, LocalDate fecha, LocalTime hora) {
+        super();
+        this.nombre = nombre;
+        this.puntuacionPartida = puntuacionPartida;
+        this.fecha = fecha;
+        this.hora = hora;
+    }
 	//METODO
 	public String fechaFormateada() {
         DateTimeFormatter formatoF = DateTimeFormatter.ofPattern("dd/MM/yyyy");
